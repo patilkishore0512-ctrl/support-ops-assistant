@@ -11,7 +11,7 @@ An internal assistant for a customer-support platform, built from two data sourc
 |---|---|---|---|
 | A | Data pipeline: raw → cleaned → curated, 16 DQ checks, quarantine, schema drift, upserts | ✅ Done | [docs/part-a-pipeline.md](docs/part-a-pipeline.md) |
 | B | RAG service: FastAPI `/ingest` and `/ask`, hybrid retrieval + re-ranking, guarded SQL tool, guardrails, Docker | ✅ Done | [docs/part-b-rag-service.md](docs/part-b-rag-service.md) |
-| C | Evaluation: golden set, retrieval and answer metrics, experiment | ⏳ Planned | |
+| C | Evaluation: 34-question golden set, retrieval/answer/abstention metrics, retrieval and chunk-size experiments | ✅ Done | [docs/part-c-evaluation.md](docs/part-c-evaluation.md) |
 | D | Design note: scale, deployment, risks | ⏳ Planned | |
 
 ## Quick start
@@ -66,11 +66,13 @@ No `make`? See the commands in [Part A](docs/part-a-pipeline.md#how-to-run) and 
 ├── outputs/
 │   ├── pipeline/              sample outputs from a full pipeline run
 │   └── rag/                   sample /ask responses
+├── evaluation/                Part C: golden set, metrics, runner, results
 ├── tests/
 │   ├── pipeline/              Part A tests
-│   └── rag_service/           Part B tests
+│   ├── rag_service/           Part B tests
+│   └── evaluation/            metric and golden-set tests
 ├── docs/                      detailed write-up per part, AI usage
-├── .github/workflows/ci.yml   tests, pipeline, API smoke test, Docker build + smoke test
+├── .github/workflows/         CI (tests, pipeline, API + Docker smoke tests, offline eval), real-model eval
 ├── Dockerfile
 ├── docker-compose.yml
 ├── Makefile
@@ -115,6 +117,26 @@ flowchart LR
 - **Runs anywhere**: Docker image with models baked in, or fully offline with LSA embeddings and the mock LLM.
 
 Sample responses: [`outputs/rag/sample_responses.json`](outputs/rag/sample_responses.json).
+
+## Part C at a glance
+
+Production configuration on the 34-question golden set (real models, GitHub Actions):
+
+| Hit@1 | Hit@5 | MRR | Unanswerable refused | Answerable wrongly refused | Ticket answers correct |
+|---|---|---|---|---|---|
+| 95% | 100% | 0.97 | 100% (6/6) | 9% (2/22) | 83% (5/6) |
+
+| Retrieval setup | Hit@1 | MRR | Abstain on unanswerable | False abstain |
+|---|---|---|---|---|
+| BM25 only | 86% | 0.90 | 50% | 14% |
+| Hybrid BM25 + bge-small | 86% | 0.92 | 83% | 0% |
+| + cross-encoder re-rank | 95% | 0.97 | 100% | 9% |
+
+- Hybrid fixes each method's blind spot; re-ranking gives the best ranking.
+- The re-ranker's raw score was a poor confidence signal (27% false refusals). Blending it with retrieval evidence cut that to 9%.
+- Chunk size barely matters here, because chunks already follow headings.
+
+Details, threshold sweep and limitations: [docs/part-c-evaluation.md](docs/part-c-evaluation.md). Raw results: [`evaluation/results/`](evaluation/results/).
 
 ## Use of AI coding assistants
 

@@ -184,15 +184,15 @@ RRF uses ranks only, so the very different score scales of cosine and BM25 never
 
 **3. Cross-encoder re-ranking**
 
-`cross-encoder/ms-marco-MiniLM-L-6-v2` reads the question and passage together, which separates "mentions the same words" from "answers the question". It runs only on the 20 fused candidates, which keeps its cost small and bounded. Its score is also the confidence signal.
+`cross-encoder/ms-marco-MiniLM-L-6-v2` reads the question and passage together, which separates "mentions the same words" from "answers the question". It runs only on the 20 fused candidates, which keeps its cost small and bounded. Its score is also half of the confidence signal.
 
-The before/after effect of each of these is measured in Part C.
+The before/after effect of each of these is measured in [Part C](part-c-evaluation.md).
 
 ## Confidence and abstention
 
 | Situation | Confidence |
 |---|---|
-| Re-ranker active | `sigmoid(top cross-encoder logit)`: the model is trained to estimate relevance |
+| Re-ranker active | `0.5 × sigmoid(top cross-encoder logit) + 0.5 × the heuristic below`. The raw cross-encoder score alone wrongly refused 27% of answerable questions (Part C, experiment 1b) |
 | No re-ranker | `0.45 × share of question words found in the top passage + 0.35 × dense cosine + 0.20 × (top passage in both BM25 and dense top-5)` |
 | Ticket route | 1.0 when the guarded query returned rows, 0.5 for an empty result, 0 when no safe query exists |
 

@@ -1,7 +1,7 @@
 PY ?= python
 PORT ?= 8000
 
-.PHONY: help setup setup-models generate pipeline rerun report reset ingest serve ask test docker-build docker-up smoke all
+.PHONY: help setup setup-models generate pipeline rerun report reset ingest serve ask eval eval-offline test docker-build docker-up smoke all
 
 help:            ## list commands
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-13s %s\n", $$1, $$2}'
@@ -39,6 +39,13 @@ serve:           ## run the API on http://localhost:$(PORT) (docs at /docs)
 
 ask:             ## ask one question, e.g. make ask Q="How do I enable CORS?"
 	$(PY) -m rag_service ask "$(Q)"
+
+# ---------- Part C: evaluation ----------
+eval:            ## evaluate every configuration that can run here
+	$(PY) evaluation/run_eval.py
+
+eval-offline:    ## evaluate BM25 + LSA configurations (no model downloads)
+	$(PY) evaluation/run_eval.py --configs offline --out outputs/eval-offline
 
 # ---------- Docker ----------
 docker-build:    ## build the image (with models)
