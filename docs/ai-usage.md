@@ -17,6 +17,9 @@ Claude (Anthropic), used through claude.ai.
 
 Commits include a `Co-Authored-By: Claude` line.
 
-## My review
+## My role
 
-<!-- Kishore: describe what you reviewed, changed or decided yourself before submitting. -->
+- Asked for each part's requirements to be restated and confirmed scope before any code was written.
+- Chose the design direction for Part A: DuckDB as the store, CSV daily files, and a CLI + Makefile for orchestration.
+- Decided on a single repository for all four parts with a documented, presentable structure, and set up the GitHub repository.
+- Directed the work part by part (A, then B, C and D), approving each step before the next.
