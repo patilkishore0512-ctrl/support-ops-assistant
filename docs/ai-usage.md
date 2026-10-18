@@ -14,6 +14,7 @@ Claude (Anthropic), used through claude.ai.
 | Part A code | Generator, pipeline modules, tests, Makefile and CI were written by Claude to the agreed design. |
 | Part B code | RAG service, retrieval, SQL guard, guardrails, Dockerfile and tests were written by Claude to the agreed design (mock LLM default, FastAPI docs as the knowledge base). |
 | Part C | Golden set, metrics, evaluation runner and GitHub Actions evaluation workflow were written by Claude; Claude ran the experiments and drafted the analysis from the actual results. |
+| Part D | Design note drafted by Claude on Azure (my choice of cloud), with prices checked against public sources and estimates labelled as such. |
 | Verification | Claude ran the pipeline end to end, re-ran days to check idempotency, checked upsert correctness against history, and ran the tests in a fresh virtual environment. For Part B: tested SQL-guard attacks, injection false positives on the real docs, and a clean-environment run of the container startup; CI builds and smoke-tests the Docker image. |
 | Documentation | Drafted by Claude from the implemented code and actual run results. |
 

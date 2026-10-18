@@ -12,7 +12,7 @@ An internal assistant for a customer-support platform, built from two data sourc
 | A | Data pipeline: raw → cleaned → curated, 16 DQ checks, quarantine, schema drift, upserts | ✅ Done | [docs/part-a-pipeline.md](docs/part-a-pipeline.md) |
 | B | RAG service: FastAPI `/ingest` and `/ask`, hybrid retrieval + re-ranking, guarded SQL tool, guardrails, Docker | ✅ Done | [docs/part-b-rag-service.md](docs/part-b-rag-service.md) |
 | C | Evaluation: 34-question golden set, retrieval/answer/abstention metrics, retrieval and chunk-size experiments | ✅ Done | [docs/part-c-evaluation.md](docs/part-c-evaluation.md) |
-| D | Design note: scale, deployment, risks | ⏳ Planned | |
+| D | Design note: 100× scale, Azure deployment and monitoring, top risks, next week | ✅ Done | [docs/design-note.md](docs/design-note.md) |
 
 ## Quick start
 
@@ -137,6 +137,15 @@ Production configuration on the 34-question golden set (real models, GitHub Acti
 - Chunk size barely matters here, because chunks already follow headings.
 
 Details, threshold sweep and limitations: [docs/part-c-evaluation.md](docs/part-c-evaluation.md). Raw results: [`evaluation/results/`](evaluation/results/).
+
+## Part D at a glance
+
+- **100× scale** (2M documents, 50M tickets): event-driven incremental indexing into Azure AI Search (hybrid + semantic ranker), Delta tables on ADLS with the same upsert and quality rules, curated tables in PostgreSQL for the SQL tool. Index fits one S1 partition with 512-dim quantized vectors.
+- **Cost**: roughly $2,000-2,500/month at 10,000 questions/day (about $0.008 per question), with priced assumptions.
+- **Azure deployment**: Container Apps (API + jobs), Azure OpenAI, API Management, Key Vault + managed identity, Azure Monitor; releases gated on the golden set in staging.
+- **Risks**: hallucination, data leakage and stale index, each mapped to what is already built and what production adds; cost spikes controlled at the gateway.
+
+Full note: [docs/design-note.md](docs/design-note.md).
 
 ## Use of AI coding assistants
 
