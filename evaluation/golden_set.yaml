@@ -1,0 +1,256 @@
+# Golden set for the Support Ops Assistant.
+#
+# Written before any evaluation was run, against the text of the knowledge base, so the
+# questions are not tuned to the system's results.
+#
+# Fields
+#   id               unique id; prefix shows the category
+#   category         docs_exact | docs_paraphrase | docs_filtered | unanswerable | tickets
+#   question         what the user asks
+#   expected_route   docs | tickets
+#   expected_sources docs: retrieval counts as a hit if ANY of these files is retrieved
+#   key_facts        docs: list of fact groups; a group is satisfied if ANY of its strings
+#                    appears in the answer (case-insensitive). correctness = groups satisfied / groups
+#   filters          optional metadata filters passed to /ask
+#   expected_answer  tickets: values that must appear in the returned rows or answer
+#   answerable       false -> the correct behaviour is "I don't know"
+#
+# docs_exact       uses the exact identifiers that appear in the docs (favours keyword search)
+# docs_paraphrase  describes the problem in the user's own words, avoiding the docs' terms
+#                  where possible (favours semantic search)
+# Expected ticket values come from the Part A store built with seed 42.
+
+questions:
+  # ---------------- docs: exact identifiers ----------------
+  - id: exact-01
+    category: docs_exact
+    question: What does allow_credentials do in CORSMiddleware and what is its default?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/cors.md]
+    key_facts: [[cookies], ["false"]]
+
+  - id: exact-02
+    category: docs_exact
+    question: What is the default max_age for CORSMiddleware?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/cors.md]
+    key_facts: [["600"]]
+
+  - id: exact-03
+    category: docs_exact
+    question: How do I use OAuth2PasswordRequestForm in the token path operation?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/security/simple-oauth2.md]
+    key_facts: [[Depends, dependency], [username], [password]]
+
+  - id: exact-04
+    category: docs_exact
+    question: What is app.dependency_overrides used for?
+    expected_route: docs
+    expected_sources: [fastapi/advanced/testing-dependencies.md]
+    key_facts: [[test], [override]]
+
+  - id: exact-05
+    category: docs_exact
+    question: How do I raise an HTTPException with a 404 status code?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/handling-errors.md]
+    key_facts: [[HTTPException], ["404"]]
+
+  - id: exact-06
+    category: docs_exact
+    question: What does the --workers option of fastapi run do?
+    expected_route: docs
+    expected_sources: [fastapi/deployment/server-workers.md]
+    key_facts: [[worker], [process, multiple]]
+
+  - id: exact-07
+    category: docs_exact
+    question: What does model_dump(exclude_unset=True) do for partial updates?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/body-updates.md]
+    key_facts: [[partial], [default, "set"]]
+
+  # ---------------- docs: paraphrased ----------------
+  - id: para-01
+    category: docs_paraphrase
+    question: My React app runs on localhost:3000 and the browser blocks its requests to my API on port 8000. What should I configure?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/cors.md]
+    key_facts: [[CORSMiddleware, allow_origins, origin]]
+
+  - id: para-02
+    category: docs_paraphrase
+    question: How can I send an email after returning the HTTP response so the user does not have to wait?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/background-tasks.md]
+    key_facts: [[BackgroundTasks, background task]]
+
+  - id: para-03
+    category: docs_paraphrase
+    question: How should I store user passwords securely?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/security/oauth2-jwt.md, fastapi/tutorial/security/simple-oauth2.md]
+    key_facts: [[hash]]
+
+  - id: para-04
+    category: docs_paraphrase
+    question: I deploy on Kubernetes. Should each container run several server worker processes?
+    expected_route: docs
+    expected_sources: [fastapi/deployment/docker.md, fastapi/deployment/server-workers.md, fastapi/deployment/concepts.md]
+    key_facts: [[single, one]]
+
+  - id: para-05
+    category: docs_paraphrase
+    question: How do I run some code once when the app starts up and clean it up when it shuts down?
+    expected_route: docs
+    expected_sources: [fastapi/advanced/events.md]
+    key_facts: [[lifespan, startup]]
+
+  - id: para-06
+    category: docs_paraphrase
+    question: How do I read configuration such as secret keys from environment variables in a typed way?
+    expected_route: docs
+    expected_sources: [fastapi/advanced/settings.md, fastapi/environment-variables.md]
+    key_facts: [[BaseSettings, Settings, pydantic-settings]]
+
+  - id: para-07
+    category: docs_paraphrase
+    question: How can I give each request a database session and make sure it is closed afterwards?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/dependencies/dependencies-with-yield.md, fastapi/tutorial/sql-databases.md]
+    key_facts: [[yield]]
+
+  - id: para-08
+    category: docs_paraphrase
+    question: How do I let users upload a file to my endpoint?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/request-files.md, fastapi/tutorial/request-forms-and-files.md]
+    key_facts: [[UploadFile, File]]
+
+  - id: para-09
+    category: docs_paraphrase
+    question: How do I serve images and CSS files from a folder?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/static-files.md]
+    key_facts: [[StaticFiles], [mount]]
+
+  - id: para-10
+    category: docs_paraphrase
+    question: How do I write tests that call my endpoints without starting a real server?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/testing.md, fastapi/advanced/async-tests.md]
+    key_facts: [[TestClient]]
+
+  - id: para-11
+    category: docs_paraphrase
+    question: How can I measure how long each request takes and return that time in a response header?
+    expected_route: docs
+    expected_sources: [fastapi/tutorial/middleware.md]
+    key_facts: [[middleware], [X-Process-Time, header]]
+
+  - id: para-12
+    category: docs_paraphrase
+    question: My app is served behind a proxy under the /api/v1 path prefix and the docs page breaks. How do I fix it?
+    expected_route: docs
+    expected_sources: [fastapi/advanced/behind-a-proxy.md]
+    key_facts: [[root_path]]
+
+  # ---------------- docs: with metadata filters ----------------
+  - id: filter-01
+    category: docs_filtered
+    question: How do I get HTTPS certificates for my domain?
+    filters: {source_prefix: fastapi/deployment}
+    expected_route: docs
+    expected_sources: [fastapi/deployment/https.md]
+    key_facts: [[Let's Encrypt, certificate]]
+
+  - id: filter-02
+    category: docs_filtered
+    question: How should I pin the version I depend on?
+    filters: {source_prefix: fastapi/deployment}
+    expected_route: docs
+    expected_sources: [fastapi/deployment/versions.md]
+    key_facts: [[pin]]
+
+  - id: filter-03
+    category: docs_filtered
+    question: How do I detect that a client has disconnected?
+    filters: {source_prefix: fastapi/advanced}
+    expected_route: docs
+    expected_sources: [fastapi/advanced/websockets.md]
+    key_facts: [[WebSocketDisconnect]]
+
+  # ---------------- unanswerable ----------------
+  - id: unans-01
+    category: unanswerable
+    question: What is the capital of France?
+    expected_route: docs
+    answerable: false
+
+  - id: unans-02
+    category: unanswerable
+    question: How do I configure Django's CSRF middleware in settings.py?
+    expected_route: docs
+    answerable: false
+
+  - id: unans-03
+    category: unanswerable
+    question: What is the refund policy for enterprise customers?
+    expected_route: docs
+    answerable: false
+
+  - id: unans-04
+    category: unanswerable
+    question: How do I connect to MongoDB using the Motor driver?
+    expected_route: docs
+    answerable: false
+
+  - id: unans-05
+    category: unanswerable
+    question: How do I set up GraphQL subscriptions with Strawberry?
+    expected_route: docs
+    answerable: false
+
+  - id: unans-06
+    category: unanswerable
+    question: Which Kafka consumer group settings give exactly-once delivery?
+    expected_route: docs
+    answerable: false
+
+  # ---------------- tickets (structured data) ----------------
+  - id: tickets-01
+    category: tickets
+    question: Which product has the slowest average resolution time?
+    expected_route: tickets
+    expected_answer: [mobile_app, "152.94"]
+
+  - id: tickets-02
+    category: tickets
+    question: How long does it take to resolve billing tickets on average?
+    expected_route: tickets
+    expected_answer: ["135.53"]
+
+  - id: tickets-03
+    category: tickets
+    question: What is the current backlog of urgent tickets?
+    expected_route: tickets
+    expected_answer: ["233"]
+
+  - id: tickets-04
+    category: tickets
+    question: How many open high priority billing tickets are there?
+    expected_route: tickets
+    expected_answer: ["33"]
+
+  - id: tickets-05
+    category: tickets
+    question: What is the status of ticket TKT-000123?
+    expected_route: tickets
+    expected_answer: [resolved]
+
+  - id: tickets-06
+    category: tickets
+    question: Which product's tickets take the longest to close?
+    expected_route: tickets
+    expected_answer: [mobile_app]

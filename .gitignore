@@ -8,3 +8,4 @@ warehouse/
 *.duckdb.wal
 *.egg-info/
 build/
+evaluation/results/.no-index/
