@@ -144,7 +144,12 @@ class Retriever:
     def confidence(query: str, hits: list[Hit], reranked: bool, mode: str = "hybrid") -> float:
         """
         0..1 estimate that the top passage answers the question.
-          with a cross-encoder : sigmoid of its top logit (trained exactly for relevance)
+          with a cross-encoder : 0.5 * sigmoid(top logit) + 0.5 * the heuristic below.
+                                 The cross-encoder ranks very well, but its raw score is low for
+                                 correct passages when the question is phrased in everyday words
+                                 (it was trained on web search queries). Blending keeps its
+                                 ranking power while the retrieval evidence prevents false
+                                 "I don't know" answers (Part C, experiment 1).
           without              : weighted evidence from the top hit -
                                  0.45 * share of question words found in the passage
                                  0.35 * dense cosine similarity          (if dense search ran)
@@ -157,12 +162,13 @@ class Retriever:
         if not hits:
             return 0.0
         top = hits[0]
-        if reranked and top.rerank is not None:
-            return round(sigmoid(top.rerank), 3)
         signals = [(0.45, term_coverage(query, top.chunk.search_text))]
         if mode in ("hybrid", "dense"):
             signals.append((0.35, max(top.dense or 0.0, 0.0)))
         if mode == "hybrid":
             signals.append((0.20, 1.0 if (top.dense_rank or 99) <= 5 and (top.bm25_rank or 99) <= 5 else 0.0))
         total = sum(w for w, _ in signals)
-        return round(sum(w * v for w, v in signals) / total, 3)
+        heuristic = sum(w * v for w, v in signals) / total
+        if reranked and top.rerank is not None:
+            return round(0.5 * sigmoid(top.rerank) + 0.5 * heuristic, 3)
+        return round(heuristic, 3)

@@ -63,3 +63,29 @@ def test_index_save_and_load(kb_dir, tmp_path):
     q = "background tasks after returning a response"
     assert built.dense_search(q, 3) == pytest.approx(loaded.dense_search(q, 3))
     assert loaded.info.chunks == len(chunks)
+
+
+class FixedReranker:
+    """Stand-in cross-encoder: scores passages by a fixed logit per source."""
+    name = "fake-cross-encoder"
+
+    def __init__(self, logits):
+        self.logits = logits
+
+    def score(self, query, passages):
+        import numpy as np
+        return np.array([self.logits.get(next((k for k in self.logits if k in p), ""), -8.0) for p in passages])
+
+
+def test_rerank_reorders_and_blends_confidence(kb_dir):
+    chunks = load_corpus(kb_dir)
+    index = SearchIndex.build(chunks, LSAEmbedder(), 180, 30)
+    plain = Retriever(index, Reranker()).search("background tasks after returning a response")
+    rr = Retriever(index, FixedReranker({"Background Tasks": -6.0, "CORS": 4.0}))
+    res = rr.search("background tasks after returning a response")
+    assert res.reranked and res.hits[0].chunk.title.startswith("CORS")   # re-ranker decides the order
+    from rag_service.retrieval import sigmoid
+    top = res.hits[0]
+    heuristic = Retriever.confidence("background tasks after returning a response", [top], reranked=False)
+    assert res.confidence == pytest.approx(0.5 * sigmoid(4.0) + 0.5 * heuristic, abs=1e-3)
+    assert plain.hits[0].chunk.title == "Background Tasks"
