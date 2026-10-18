@@ -1,0 +1,377 @@
+{
+  "source": "https://github.com/fastapi/fastapi (docs/en/docs)",
+  "commit": "b23d78f2ce4e7b3ea48a59f51ca249690d9fd02c",
+  "license": "MIT",
+  "documents": [
+    {
+      "path": "fastapi/tutorial/background-tasks.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/background-tasks/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/bigger-applications.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/bigger-applications/",
+      "last_updated": "2026-10-15"
+    },
+    {
+      "path": "fastapi/tutorial/body-fields.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/body-fields/",
+      "last_updated": "2025-08-31"
+    },
+    {
+      "path": "fastapi/tutorial/body-multiple-params.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/body-multiple-params/",
+      "last_updated": "2026-05-24"
+    },
+    {
+      "path": "fastapi/tutorial/body-nested-models.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/body-nested-models/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/body-updates.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/body-updates/",
+      "last_updated": "2026-03-05"
+    },
+    {
+      "path": "fastapi/tutorial/body.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/body/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/cookie-param-models.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/cookie-param-models/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/tutorial/cookie-params.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/cookie-params/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/tutorial/cors.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/cors/",
+      "last_updated": "2026-03-05"
+    },
+    {
+      "path": "fastapi/tutorial/debugging.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/debugging/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/tutorial/dependencies/classes-as-dependencies.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/dependencies/classes-as-dependencies/",
+      "last_updated": "2026-02-11"
+    },
+    {
+      "path": "fastapi/tutorial/dependencies/dependencies-in-path-operation-decorators.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/dependencies/dependencies-in-path-operation-decorators/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/tutorial/dependencies/dependencies-with-yield.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/dependencies/dependencies-with-yield/",
+      "last_updated": "2026-06-19"
+    },
+    {
+      "path": "fastapi/tutorial/dependencies/global-dependencies.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/dependencies/global-dependencies/",
+      "last_updated": "2026-03-05"
+    },
+    {
+      "path": "fastapi/tutorial/dependencies/index.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/dependencies/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/tutorial/dependencies/sub-dependencies.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/dependencies/sub-dependencies/",
+      "last_updated": "2026-10-15"
+    },
+    {
+      "path": "fastapi/tutorial/encoder.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/encoder/",
+      "last_updated": "2026-03-05"
+    },
+    {
+      "path": "fastapi/tutorial/extra-data-types.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/extra-data-types/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/extra-models.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/extra-models/",
+      "last_updated": "2026-10-15"
+    },
+    {
+      "path": "fastapi/tutorial/first-steps.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/frontend.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/frontend/",
+      "last_updated": "2026-07-29"
+    },
+    {
+      "path": "fastapi/tutorial/handling-errors.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/handling-errors/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/header-param-models.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/header-param-models/",
+      "last_updated": "2025-08-31"
+    },
+    {
+      "path": "fastapi/tutorial/header-params.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/header-params/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/tutorial/index.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/",
+      "last_updated": "2026-07-23"
+    },
+    {
+      "path": "fastapi/tutorial/metadata.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/metadata/",
+      "last_updated": "2026-06-19"
+    },
+    {
+      "path": "fastapi/tutorial/middleware.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/middleware/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/path-operation-configuration.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/path-operation-configuration/",
+      "last_updated": "2026-06-19"
+    },
+    {
+      "path": "fastapi/tutorial/path-params-numeric-validations.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/tutorial/path-params.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/path-params/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/query-param-models.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/query-param-models/",
+      "last_updated": "2025-08-31"
+    },
+    {
+      "path": "fastapi/tutorial/query-params-str-validations.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/query-params-str-validations/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/query-params.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/query-params/",
+      "last_updated": "2026-06-19"
+    },
+    {
+      "path": "fastapi/tutorial/request-files.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/request-files/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/tutorial/request-form-models.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/request-form-models/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/tutorial/request-forms-and-files.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/request-forms-and-files/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/tutorial/request-forms.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/request-forms/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/tutorial/response-model.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/response-model/",
+      "last_updated": "2026-10-15"
+    },
+    {
+      "path": "fastapi/tutorial/response-status-code.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/response-status-code/",
+      "last_updated": "2026-06-19"
+    },
+    {
+      "path": "fastapi/tutorial/schema-extra-example.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/schema-extra-example/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/security/first-steps.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/security/first-steps/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/tutorial/security/get-current-user.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/security/get-current-user/",
+      "last_updated": "2026-06-19"
+    },
+    {
+      "path": "fastapi/tutorial/security/index.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/security/",
+      "last_updated": "2025-08-31"
+    },
+    {
+      "path": "fastapi/tutorial/security/oauth2-jwt.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/tutorial/security/simple-oauth2.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/",
+      "last_updated": "2026-10-15"
+    },
+    {
+      "path": "fastapi/tutorial/server-sent-events.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/server-sent-events/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/tutorial/sql-databases.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/sql-databases/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/tutorial/static-files.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/static-files/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/tutorial/stream-json-lines.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/stream-json-lines/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/tutorial/testing.md",
+      "url": "https://fastapi.tiangolo.com/tutorial/testing/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/deployment/cloud.md",
+      "url": "https://fastapi.tiangolo.com/deployment/cloud/",
+      "last_updated": "2026-10-05"
+    },
+    {
+      "path": "fastapi/deployment/concepts.md",
+      "url": "https://fastapi.tiangolo.com/deployment/concepts/",
+      "last_updated": "2026-06-19"
+    },
+    {
+      "path": "fastapi/deployment/docker.md",
+      "url": "https://fastapi.tiangolo.com/deployment/docker/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/deployment/fastapicloud.md",
+      "url": "https://fastapi.tiangolo.com/deployment/fastapicloud/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/deployment/https.md",
+      "url": "https://fastapi.tiangolo.com/deployment/https/",
+      "last_updated": "2026-06-19"
+    },
+    {
+      "path": "fastapi/deployment/index.md",
+      "url": "https://fastapi.tiangolo.com/deployment/",
+      "last_updated": "2026-03-05"
+    },
+    {
+      "path": "fastapi/deployment/manually.md",
+      "url": "https://fastapi.tiangolo.com/deployment/manually/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/deployment/server-workers.md",
+      "url": "https://fastapi.tiangolo.com/deployment/server-workers/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/deployment/versions.md",
+      "url": "https://fastapi.tiangolo.com/deployment/versions/",
+      "last_updated": "2026-03-05"
+    },
+    {
+      "path": "fastapi/advanced/settings.md",
+      "url": "https://fastapi.tiangolo.com/advanced/settings/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/advanced/websockets.md",
+      "url": "https://fastapi.tiangolo.com/advanced/websockets/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/advanced/events.md",
+      "url": "https://fastapi.tiangolo.com/advanced/events/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/advanced/behind-a-proxy.md",
+      "url": "https://fastapi.tiangolo.com/advanced/behind-a-proxy/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/advanced/custom-response.md",
+      "url": "https://fastapi.tiangolo.com/advanced/custom-response/",
+      "last_updated": "2026-05-18"
+    },
+    {
+      "path": "fastapi/advanced/response-headers.md",
+      "url": "https://fastapi.tiangolo.com/advanced/response-headers/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/advanced/response-cookies.md",
+      "url": "https://fastapi.tiangolo.com/advanced/response-cookies/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/advanced/middleware.md",
+      "url": "https://fastapi.tiangolo.com/advanced/middleware/",
+      "last_updated": "2026-07-24"
+    },
+    {
+      "path": "fastapi/advanced/async-tests.md",
+      "url": "https://fastapi.tiangolo.com/advanced/async-tests/",
+      "last_updated": "2026-10-15"
+    },
+    {
+      "path": "fastapi/advanced/testing-dependencies.md",
+      "url": "https://fastapi.tiangolo.com/advanced/testing-dependencies/",
+      "last_updated": "2025-08-31"
+    },
+    {
+      "path": "fastapi/async.md",
+      "url": "https://fastapi.tiangolo.com/async/",
+      "last_updated": "2026-10-15"
+    },
+    {
+      "path": "fastapi/environment-variables.md",
+      "url": "https://fastapi.tiangolo.com/environment-variables/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/virtual-environments.md",
+      "url": "https://fastapi.tiangolo.com/virtual-environments/",
+      "last_updated": "2026-07-21"
+    },
+    {
+      "path": "fastapi/fastapi-cli.md",
+      "url": "https://fastapi.tiangolo.com/fastapi-cli/",
+      "last_updated": "2026-07-29"
+    }
+  ]
+}
