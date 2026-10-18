@@ -1,0 +1,13 @@
+reason,rows
+exact_duplicate_row,170
+product_allowed_values,43
+priority_allowed_values,38
+customer_id_referential,31
+status_allowed_values,31
+updated_not_before_created,31
+created_at_valid_date,27
+ticket_id_not_null,26
+customer_id_not_null,20
+agent_id_referential,20
+ticket_id_format,17
+dates_not_in_future,16

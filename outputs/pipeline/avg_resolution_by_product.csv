@@ -1,0 +1,6 @@
+product,resolved_tickets,avg_resolution_hours,median_resolution_hours,p90_resolution_hours
+api,375,151.45,119.5,229.74
+billing,374,135.53,107.25,219.7
+integrations,432,137.14,114.0,225.0
+mobile_app,420,152.94,116.0,238.1
+web_portal,405,148.97,121.0,231.6

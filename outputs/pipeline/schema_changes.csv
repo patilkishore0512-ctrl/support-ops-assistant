@@ -1,0 +1,4 @@
+detected_at,file_name,table_name,column_name,change_type
+2026-10-18 07:12:58.558543,tickets_2026-10-03.csv,raw.tickets,channel,added_column
+2026-10-18 07:12:58.558543,tickets_2026-10-03.csv,clean.ticket_versions,channel,added_column
+2026-10-18 07:12:58.558543,tickets_2026-10-03.csv,clean.tickets,channel,added_column

@@ -1,0 +1,5 @@
+table_name,rows
+raw.tickets,5520
+clean.ticket_versions,5020
+clean.tickets,4207
+clean.tickets_quarantine,459
