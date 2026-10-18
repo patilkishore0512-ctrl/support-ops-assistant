@@ -38,6 +38,8 @@ Commits include a `Co-Authored-By: Claude` line.
 - Defined the evaluation scope before implementation: a golden set covering exact-term, paraphrased, filtered, unanswerable and structured-data questions, with retrieval, answer-quality and abstention metrics.
 - Chose the before/after experiments: retrieval method (keyword, semantic, hybrid, and re-ranking on/off) and chunk size.
 - Approved running the real-model evaluation on GitHub Actions, so results are reproducible on a clean machine and the setup works without API keys.
+- Chose Azure as the target cloud for the design note, based on hands-on experience deploying to Azure Web Apps and building CI/CD with GitHub Actions, so the deployment, monitoring and cost choices reflect a platform I have run in practice.
+- Reviewed the design-note plan against the assignment's four questions (100× scale, deployment and monitoring, top risks, next steps) before it was written.
 - Used AI assistance to explore implementation approaches and refine technical decisions.
 
 ### 3. AI-Assisted Implementation and Validation
