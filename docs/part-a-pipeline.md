@@ -20,7 +20,7 @@ Ingests daily support-ticket exports into DuckDB through raw, cleaned and curate
 
 ```bash
 make setup
-make all          # generate -> pipeline -> report -> test
+make all          # generate -> pipeline -> report -> index KB -> test
 make rerun        # reprocess day 2 to show idempotency
 ```
 

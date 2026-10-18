@@ -10,47 +10,72 @@ An internal assistant for a customer-support platform, built from two data sourc
 | Part | What | Status | Docs |
 |---|---|---|---|
 | A | Data pipeline: raw → cleaned → curated, 16 DQ checks, quarantine, schema drift, upserts | ✅ Done | [docs/part-a-pipeline.md](docs/part-a-pipeline.md) |
-| B | RAG service: FastAPI `/ingest` and `/ask`, hybrid retrieval, SQL tool, guardrails | 🚧 In progress | |
+| B | RAG service: FastAPI `/ingest` and `/ask`, hybrid retrieval + re-ranking, guarded SQL tool, guardrails, Docker | ✅ Done | [docs/part-b-rag-service.md](docs/part-b-rag-service.md) |
 | C | Evaluation: golden set, retrieval and answer metrics, experiment | ⏳ Planned | |
 | D | Design note: scale, deployment, risks | ⏳ Planned | |
 
 ## Quick start
 
-Requires Python 3.11+.
+**Docker** (nothing else to install):
 
 ```bash
 git clone https://github.com/patilkishore0512-ctrl/support-ops-assistant.git
 cd support-ops-assistant
+docker compose up --build        # builds the ticket store + index, serves the API
+```
 
+Open http://localhost:8000/docs, or:
+
+```bash
+curl -X POST localhost:8000/ask -H "content-type: application/json" \
+     -d '{"question": "How do I configure CORSMiddleware to allow my frontend origin?"}'
+curl -X POST localhost:8000/ask -H "content-type: application/json" \
+     -d '{"question": "What is the average resolution time per product?"}'
+```
+
+**Local** (Python 3.11+):
+
+```bash
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 
 make setup                       # install dependencies
-make all                         # generate data -> run pipeline -> print report -> run tests
+make all                         # data -> pipeline -> report -> index -> tests
+make serve                       # API on http://localhost:8000
 ```
 
-No `make`? See the commands in [docs/part-a-pipeline.md](docs/part-a-pipeline.md#how-to-run).
+No API key is needed: the default LLM is a documented offline mock. Set `LLM_PROVIDER` in `.env` to use OpenAI or Anthropic (see [`.env.example`](.env.example)).
+
+No `make`? See the commands in [Part A](docs/part-a-pipeline.md#how-to-run) and [Part B](docs/part-b-rag-service.md#how-to-run).
 
 ## Repository layout
 
 ```
 .
 ├── src/
-│   └── pipeline/              Part A: ingestion, cleaning, DQ checks, curated views, CLI
+│   ├── pipeline/              Part A: ingestion, cleaning, DQ checks, curated views, CLI
+│   └── rag_service/           Part B: FastAPI app, chunking, hybrid retrieval, SQL tool, guardrails
 ├── scripts/
-│   └── generate_tickets.py    synthetic ticket generator (deliberate quality problems)
+│   ├── generate_tickets.py    synthetic ticket generator (deliberate quality problems)
+│   ├── docker-entrypoint.sh   container start: build ticket store + index if missing, serve
+│   └── smoke_test.py          end-to-end check against a running service
 ├── data/
 │   ├── incoming/              daily ticket files
-│   └── reference/             customers and agents
+│   ├── reference/             customers and agents
+│   └── kb/                    74 FastAPI docs articles + manifest (URL, last updated)
 ├── outputs/
-│   └── pipeline/              sample outputs from a full run
+│   ├── pipeline/              sample outputs from a full pipeline run
+│   └── rag/                   sample /ask responses
 ├── tests/
-│   └── pipeline/              unit and integration tests
+│   ├── pipeline/              Part A tests
+│   └── rag_service/           Part B tests
 ├── docs/                      detailed write-up per part, AI usage
-├── .github/workflows/ci.yml   tests + end-to-end pipeline run on every push
+├── .github/workflows/ci.yml   tests, pipeline, API smoke test, Docker build + smoke test
+├── Dockerfile
+├── docker-compose.yml
 ├── Makefile
 ├── pyproject.toml
-├── requirements.txt
+├── requirements*.txt          runtime / models (optional) / dev
 └── .env.example
 ```
 
@@ -70,6 +95,26 @@ flowchart LR
 - **Curated**: average/median/p90 resolution time per product, weekly backlog per priority.
 
 Sample outputs: [`outputs/pipeline/`](outputs/pipeline/).
+
+## Part B at a glance
+
+```mermaid
+flowchart LR
+    Q[question] --> R{router}
+    R -- docs --> H[BM25 + dense<br/>RRF fusion] --> RR[re-rank] --> C{confident?}
+    C -- no --> IDK[I don't know]
+    C -- yes --> L[LLM answer + citations]
+    R -- tickets --> S[SQL] --> G[guard] --> D[(read-only DuckDB)]
+```
+
+- **Knowledge base**: 74 FastAPI documentation articles, 796 heading-aware chunks, each with source, section, URL and last-updated date.
+- **Retrieval**: hybrid BM25 + dense (bge-small) with Reciprocal Rank Fusion, metadata filters, cross-encoder re-ranking.
+- **Abstention**: confidence score on every answer; below the threshold the service says "I don't know".
+- **Ticket questions**: routed to SQL on the Part A store, through a 7-layer guard and a read-only, no-file-access connection.
+- **Guardrails**: input validation, prompt-injection filtering of retrieved passages, PII masking in logs and SQL results.
+- **Runs anywhere**: Docker image with models baked in, or fully offline with LSA embeddings and the mock LLM.
+
+Sample responses: [`outputs/rag/sample_responses.json`](outputs/rag/sample_responses.json).
 
 ## Use of AI coding assistants
 
