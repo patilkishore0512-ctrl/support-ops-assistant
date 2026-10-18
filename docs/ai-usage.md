@@ -30,6 +30,9 @@ Commits include a `Co-Authored-By: Claude` line.
 
 - Selected DuckDB for analytical data storage, CSV files as input, and a CLI with a Makefile for pipeline execution.
 - Consolidated all four deliverables into a single repository to enable shared data, configuration, testing, and CI.
+- Checked the assignment's LLM requirements and chose a documented offline mock as the default provider, so reviewers and CI can run the service without API keys. Real providers can be switched on through configuration.
+- Approved FastAPI documentation as the knowledge base and FastAPI as the service framework.
+- Verified that CI builds the Docker image with real models on a clean machine and that the end-to-end smoke tests pass.
 - Used AI assistance to explore implementation approaches and refine technical decisions.
 
 ### 3. AI-Assisted Implementation and Validation
