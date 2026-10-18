@@ -43,8 +43,4 @@ Commits include a `Co-Authored-By: Claude` line.
 - Maintained a clean project structure, README, detailed documentation, and sample outputs.
 - Ensured transparency around AI-generated contributions through appropriate documentation and commit attribution.
 
-**Key contribution:** Owned the requirements, technical direction, architecture decisions, AI-assisted development workflow, validation, and final delivery of the project.
 
-**Repository:** https://github.com/patilkishore0512-ctrl/support-ops-assistant
-
-I took ownership of the project from requirement analysis to final delivery. I used Claude as a development assistant to accelerate implementation, but I drove the requirements, decided the architecture, reviewed the generated code, and validated each deliverable. I also ensured the project was properly documented and that the automated tests and end-to-end pipeline passed in CI.
