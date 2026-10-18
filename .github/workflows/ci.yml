@@ -41,6 +41,9 @@ jobs:
           python -m rag_service serve --port 8000 &
           python scripts/smoke_test.py http://localhost:8000
 
+      - name: Evaluation (offline configurations)
+        run: python evaluation/run_eval.py --configs offline --out /tmp/eval
+
   docker:
     name: Docker image (with models) from a clean machine
     runs-on: ubuntu-latest

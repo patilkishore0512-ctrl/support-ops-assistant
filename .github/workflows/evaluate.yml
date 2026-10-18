@@ -1,0 +1,47 @@
+name: Evaluate (real models)
+
+# Manually triggered: runs the full Part C evaluation with the neural embedding model and
+# the cross-encoder, then publishes the results to the `eval-results` branch so they can be
+# reviewed and copied into evaluation/results/ on main.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install (with models)
+        run: |
+          python -m pip install -r requirements-dev.txt pyyaml
+          python -m pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-models.txt
+          python -m pip install -e .
+
+      - name: Build ticket store
+        run: python -m pipeline run
+
+      - name: Run evaluation (all configurations)
+        run: python evaluation/run_eval.py --configs all --out evaluation/results
+
+      - name: Job summary
+        run: cat evaluation/results/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish results to eval-results branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan eval-results
+          git rm -rq --cached .
+          git add -f evaluation/results
+          git commit -qm "Evaluation results from run ${{ github.run_id }} (commit ${{ github.sha }})"
+          git push -f origin eval-results
