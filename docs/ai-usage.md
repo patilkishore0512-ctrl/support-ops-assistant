@@ -17,21 +17,34 @@ Claude (Anthropic), used through claude.ai.
 
 Commits include a `Co-Authored-By: Claude` line.
 
-## My role
+## My Role: AI-Assisted Development & Technical Ownership
 
-**Way of working**
-- Set the workflow for every part: restate the requirements, confirm scope, then build, verify and publish. No code was written before scope was agreed.
-- Broke the assignment into four independent deliverables and directed them in order (A, then B, C and D), approving each before moving on.
-- Asked how the work would be submitted at the start, so the repository was shaped around the submission requirements from day one.
+### 1. Requirement Analysis and Workflow Planning
 
-**Design decisions**
-- Approved the Part A architecture: DuckDB as the queryable store, CSV daily files as input, and a CLI + Makefile as the orchestration entry point instead of a full orchestrator.
-- Decided on one repository for all four parts rather than separate projects, so the pipeline, RAG service, evaluation and design note share one data store, one setup and one CI.
+- Defined project requirements and broke the assignment into four independent deliverables.
+- Established a structured workflow: clarify requirements, agree on scope, implement, validate, and document each part before proceeding.
+- Planned the submission and repository structure upfront.
 
-**Quality bar**
-- Required the deliverable to be presentable, not just working code: a clear folder structure, a short top-level README, detailed documentation per part, sample outputs and a clean commit history.
-- Required honest disclosure of AI assistance, which is why this file exists and why commits carry a `Co-Authored-By` line.
+### 2. Architecture and Design Decisions
 
-**Repository and delivery**
-- Chose the repository name, created the public GitHub repository, and connected the Claude GitHub App to it so work could be pushed directly.
-- Confirmed CI (tests and an end-to-end pipeline run) passes on GitHub before moving to the next part.
+- Selected DuckDB for analytical data storage, CSV files as input, and a CLI with a Makefile for pipeline execution.
+- Consolidated all four deliverables into a single repository to enable shared data, configuration, testing, and CI.
+- Used AI assistance to explore implementation approaches and refine technical decisions.
+
+### 3. AI-Assisted Implementation and Validation
+
+- Used Claude AI to accelerate code development, troubleshoot issues, and refine implementation through iterative prompts.
+- Reviewed generated changes against requirements and validated functionality before approving each deliverable.
+- Verified automated tests and end-to-end pipeline execution through GitHub Actions CI.
+
+### 4. Repository Management and Delivery
+
+- Set up and managed the public GitHub repository and integrated the Claude GitHub App into the development workflow.
+- Maintained a clean project structure, README, detailed documentation, and sample outputs.
+- Ensured transparency around AI-generated contributions through appropriate documentation and commit attribution.
+
+**Key contribution:** Owned the requirements, technical direction, architecture decisions, AI-assisted development workflow, validation, and final delivery of the project.
+
+**Repository:** https://github.com/patilkishore0512-ctrl/support-ops-assistant
+
+I took ownership of the project from requirement analysis to final delivery. I used Claude as a development assistant to accelerate implementation, but I drove the requirements, decided the architecture, reviewed the generated code, and validated each deliverable. I also ensured the project was properly documented and that the automated tests and end-to-end pipeline passed in CI.
