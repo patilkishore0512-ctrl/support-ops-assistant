@@ -6,3 +6,5 @@ __pycache__/
 warehouse/
 *.duckdb
 *.duckdb.wal
+*.egg-info/
+build/

@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+      args:
+        INSTALL_MODELS: "true"   # "false" for a slim image with offline LSA embeddings
+    image: support-ops-assistant
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - warehouse:/app/warehouse   # ticket store and index survive restarts
+    restart: unless-stopped
+
+volumes:
+  warehouse:

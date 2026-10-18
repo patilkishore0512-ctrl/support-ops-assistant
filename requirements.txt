@@ -1,4 +1,12 @@
+# runtime: pipeline (Part A) + RAG service (Part B)
 duckdb>=1.1,<2
 pandas>=2.2
 numpy>=1.26
-pytest>=8
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+python-dotenv>=1.0
+faiss-cpu>=1.8
+rank-bm25>=0.2.2
+scikit-learn>=1.4
+sqlglot>=25
