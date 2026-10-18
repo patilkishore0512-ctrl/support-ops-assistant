@@ -76,16 +76,31 @@ class MockLLM(LLM):
     def complete(self, system: str, prompt: str) -> str:
         return IDK
 
+    LIST_ITEM_RE = re.compile(r"^\s*(?:[*-]|\d+\.)\s+")
+
     def _sentences(self, text: str) -> list[str]:
+        """
+        Candidate answer units: sentences of prose, and whole list items. A list item in
+        reference docs is usually one self-contained fact ("`max_age` - ... Defaults to 600"),
+        so it is not split into sentences.
+        """
         prose = re.sub(r"```.*?```", " ", text, flags=re.S)           # drop code blocks
-        out = []
+        units = []
         for para in prose.split("\n\n"):
-            para = " ".join(line.strip().lstrip("*-").strip() for line in para.splitlines())
-            for s in self.SENTENCE_RE.split(para):
-                s = s.strip()
-                if 6 <= len(s.split()) <= 60 and not s.endswith(":"):
-                    out.append(s)
-        return out
+            lines = [l for l in para.splitlines() if l.strip()]
+            if lines and all(self.LIST_ITEM_RE.match(l) or l.startswith("  ") for l in lines):
+                item = []
+                for line in lines:
+                    if self.LIST_ITEM_RE.match(line) and item:
+                        units.append(" ".join(item))
+                        item = []
+                    item.append(self.LIST_ITEM_RE.sub("", line).strip())
+                if item:
+                    units.append(" ".join(item))
+                continue
+            joined = " ".join(l.strip() for l in lines)
+            units.extend(self.SENTENCE_RE.split(joined))
+        return [u.strip() for u in units if 6 <= len(u.split()) <= 80 and not u.strip().endswith(":")]
 
     def answer(self, question: str, documents: list[tuple[int, str]], context: str) -> str:
         q = set(tokenize(question))

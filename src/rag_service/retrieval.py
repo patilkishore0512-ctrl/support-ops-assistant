@@ -137,26 +137,32 @@ class Retriever:
             reranked = True
 
         top = candidates[:top_k]
-        return RetrievalResult(top, self.confidence(query, top, reranked), mode, reranked,
+        return RetrievalResult(top, self.confidence(query, top, reranked, mode), mode, reranked,
                                {k: round(v, 2) for k, v in timings.items()})
 
     @staticmethod
-    def confidence(query: str, hits: list[Hit], reranked: bool) -> float:
+    def confidence(query: str, hits: list[Hit], reranked: bool, mode: str = "hybrid") -> float:
         """
         0..1 estimate that the top passage answers the question.
           with a cross-encoder : sigmoid of its top logit (trained exactly for relevance)
           without              : weighted evidence from the top hit -
                                  0.45 * share of question words found in the passage
-                                 0.35 * dense cosine similarity
-                                 0.20 * agreement (top hit ranked in both dense and BM25 top 5)
-        Weights and the abstain threshold are tuned on the golden set (Part C).
+                                 0.35 * dense cosine similarity          (if dense search ran)
+                                 0.20 * agreement: top hit in both the   (hybrid only)
+                                        dense and BM25 top 5
+                                 weights are renormalised over the signals the mode can produce,
+                                 so single-method modes are not penalised for a missing signal.
+        The weights are hand-set; the abstain threshold is chosen with the Part C sweep.
         """
         if not hits:
             return 0.0
         top = hits[0]
         if reranked and top.rerank is not None:
             return round(sigmoid(top.rerank), 3)
-        coverage = term_coverage(query, top.chunk.search_text)
-        cosine = max(top.dense or 0.0, 0.0)
-        agree = 1.0 if (top.dense_rank or 99) <= 5 and (top.bm25_rank or 99) <= 5 else 0.0
-        return round(0.45 * coverage + 0.35 * cosine + 0.20 * agree, 3)
+        signals = [(0.45, term_coverage(query, top.chunk.search_text))]
+        if mode in ("hybrid", "dense"):
+            signals.append((0.35, max(top.dense or 0.0, 0.0)))
+        if mode == "hybrid":
+            signals.append((0.20, 1.0 if (top.dense_rank or 99) <= 5 and (top.bm25_rank or 99) <= 5 else 0.0))
+        total = sum(w for w, _ in signals)
+        return round(sum(w * v for w, v in signals) / total, 3)
