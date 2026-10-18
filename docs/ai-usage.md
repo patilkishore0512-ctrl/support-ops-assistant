@@ -34,6 +34,9 @@ Commits include a `Co-Authored-By: Claude` line.
 - Checked the assignment's LLM requirements and chose a documented offline mock as the default provider, so reviewers and CI can run the service without API keys. Real providers can be switched on through configuration.
 - Approved FastAPI documentation as the knowledge base and FastAPI as the service framework.
 - Verified that CI builds the Docker image with real models on a clean machine and that the end-to-end smoke tests pass.
+- Defined the evaluation scope before implementation: a golden set covering exact-term, paraphrased, filtered, unanswerable and structured-data questions, with retrieval, answer-quality and abstention metrics.
+- Chose the before/after experiments: retrieval method (keyword, semantic, hybrid, and re-ranking on/off) and chunk size.
+- Approved running the real-model evaluation on GitHub Actions, so results are reproducible on a clean machine and the setup works without API keys.
 - Used AI assistance to explore implementation approaches and refine technical decisions.
 
 ### 3. AI-Assisted Implementation and Validation
@@ -41,6 +44,7 @@ Commits include a `Co-Authored-By: Claude` line.
 - Used Claude AI to accelerate code development, troubleshoot issues, and refine implementation through iterative prompts.
 - Reviewed generated changes against requirements and validated functionality before approving each deliverable.
 - Verified automated tests and end-to-end pipeline execution through GitHub Actions CI.
+- Reviewed the evaluation results, including the finding that the re-ranker's raw score wrongly refused answerable questions, and the confidence fix that reduced those refusals from 27% to 9%.
 
 ### 4. Repository Management and Delivery
 
