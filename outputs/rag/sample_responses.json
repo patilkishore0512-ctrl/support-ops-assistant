@@ -9,104 +9,6 @@
   },
   "responses": [
     {
-      "question": "How do I configure CORSMiddleware to allow my frontend origin?",
-      "answer": "You can configure it in your **FastAPI** application using the `CORSMiddleware`. [2] The default parameters used by the `CORSMiddleware` implementation are restrictive by default, so you'll need to explicitly enable particular origins, methods, or headers, in order for browsers to be permitted to use them in a Cross-Domain context. [2] In this case the middleware will pass the request through as normal, but will include appropriate CORS headers on the response. [1]",
-      "route": "docs",
-      "abstained": false,
-      "confidence": 0.641,
-      "citations": [
-        {
-          "source": "fastapi/tutorial/cors.md",
-          "section": "Use `CORSMiddleware` > Simple requests",
-          "passage": "Any request with an `Origin` header. In this case the middleware will pass the request through as normal, but will include appropriate CORS headers on the response.",
-          "url": "https://fastapi.tiangolo.com/tutorial/cors/",
-          "last_updated": "2026-03-05",
-          "score": 0.0323
-        },
-        {
-          "source": "fastapi/tutorial/cors.md",
-          "section": "Use `CORSMiddleware`",
-          "passage": "You can configure it in your **FastAPI** application using the `CORSMiddleware`.\n\n* Import `CORSMiddleware`.\n* Create a list of allowed origins (as strings).\n* Add it as a \"middleware\" to your **FastAPI** application.\n\nYou can also specify whether your backend allows:\n\n* Credentials (Authorization headers, Cookies, etc).\n* Specific HTTP methods (`POST`, `PUT`) or all of them with the wildcard `\"*\"`.\n* Specific HTTP headers or all of them with the wildcard `\"*\"`.\n\nThe default parameters used by the `CORSMiddleware` implementation are restrictive by default, so you'll need to explicitly enable p",
-          "url": "https://fastapi.tiangolo.com/tutorial/cors/",
-          "last_updated": "2026-03-05",
-          "score": 0.0318
-        }
-      ],
-      "sql": null,
-      "rows": null,
-      "columns": null,
-      "warnings": [],
-      "latency_ms": 27.3
-    },
-    {
-      "question": "What is the default max_age for CORSMiddleware?",
-      "answer": "`max_age` - Sets a maximum time in seconds for browsers to cache CORS responses. Defaults to `600`. [1] The default parameters used by the `CORSMiddleware` implementation are restrictive by default, so you'll need to explicitly enable particular origins, methods, or headers, in order for browsers to be permitted to use them in a Cross-Domain context. [2] You can configure it in your **FastAPI** application using the `CORSMiddleware`. [2]",
-      "route": "docs",
-      "abstained": false,
-      "confidence": 0.789,
-      "citations": [
-        {
-          "source": "fastapi/tutorial/cors.md",
-          "section": "Use `CORSMiddleware`",
-          "passage": "None of `allow_origins`, `allow_methods` and `allow_headers` can be set to `['*']` if `allow_credentials` is set to `True`. All of them must be explicitly specified.\n\n* `expose_headers` - Indicate any response headers that should be made accessible to the browser. Defaults to `[]`.\n* `max_age` - Sets a maximum time in seconds for browsers to cache CORS responses. Defaults to `600`.\n\nThe middleware responds to two particular types of HTTP request...",
-          "url": "https://fastapi.tiangolo.com/tutorial/cors/",
-          "last_updated": "2026-03-05",
-          "score": 0.0328
-        },
-        {
-          "source": "fastapi/tutorial/cors.md",
-          "section": "Use `CORSMiddleware`",
-          "passage": "You can configure it in your **FastAPI** application using the `CORSMiddleware`.\n\n* Import `CORSMiddleware`.\n* Create a list of allowed origins (as strings).\n* Add it as a \"middleware\" to your **FastAPI** application.\n\nYou can also specify whether your backend allows:\n\n* Credentials (Authorization headers, Cookies, etc).\n* Specific HTTP methods (`POST`, `PUT`) or all of them with the wildcard `\"*\"`.\n* Specific HTTP headers or all of them with the wildcard `\"*\"`.\n\nThe default parameters used by the `CORSMiddleware` implementation are restrictive by default, so you'll need to explicitly enable p",
-          "url": "https://fastapi.tiangolo.com/tutorial/cors/",
-          "last_updated": "2026-03-05",
-          "score": 0.0323
-        }
-      ],
-      "sql": null,
-      "rows": null,
-      "columns": null,
-      "warnings": [],
-      "latency_ms": 24.8
-    },
-    {
-      "question": "How many Uvicorn worker processes should I run inside a Docker container on Kubernetes?",
-      "answer": "If you have a simple setup, with a **single container** that then starts multiple **worker processes** (or also just one process), then you could run those previous steps in the same container, right before starting the process with the app. [2] In particular, when running on **Kubernetes** you will probably **not** want to use workers and instead run **a single Uvicorn process per container**, but I'll tell you about it later in that chapter. [3] One Uvicorn **process manager** would listen on the **IP** and **port**, and it would start **multiple Uvicorn worker processes**. [1]",
-      "route": "docs",
-      "abstained": false,
-      "confidence": 0.776,
-      "citations": [
-        {
-          "source": "fastapi/deployment/concepts.md",
-          "section": "Replication - Processes and Memory > Examples of Replication Tools and Strategies",
-          "passage": "Here are some possible combinations and strategies:\n\n* **Uvicorn** with `--workers`\n    * One Uvicorn **process manager** would listen on the **IP** and **port**, and it would start **multiple Uvicorn worker processes**.\n* **Kubernetes** and other distributed **container systems**\n    * Something in the **Kubernetes** layer would listen on the **IP** and **port**. The replication would be by having **multiple containers**, each with **one Uvicorn process** running.\n* **Cloud services** that handle this for you\n    * The cloud service will probably **handle replication for you**. It would possi",
-          "url": "https://fastapi.tiangolo.com/deployment/concepts/",
-          "last_updated": "2026-06-19",
-          "score": 0.0328
-        },
-        {
-          "source": "fastapi/deployment/docker.md",
-          "section": "Previous Steps Before Starting and Containers > Single Container",
-          "passage": "If you have a simple setup, with a **single container** that then starts multiple **worker processes** (or also just one process), then you could run those previous steps in the same container, right before starting the process with the app.",
-          "url": "https://fastapi.tiangolo.com/deployment/docker/",
-          "last_updated": "2026-07-24",
-          "score": 0.0318
-        },
-        {
-          "source": "fastapi/deployment/server-workers.md",
-          "section": "Server Workers - Uvicorn with Workers",
-          "passage": "Note:\n\nIf you are using containers, for example with Docker or Kubernetes, I'll tell you more about that in the next chapter: FastAPI in Containers - Docker.\n\nIn particular, when running on **Kubernetes** you will probably **not** want to use workers and instead run **a single Uvicorn process per container**, but I'll tell you about it later in that chapter.",
-          "url": "https://fastapi.tiangolo.com/deployment/server-workers/",
-          "last_updated": "2026-07-21",
-          "score": 0.0313
-        }
-      ],
-      "sql": null,
-      "rows": null,
-      "columns": null,
-      "warnings": [],
-      "latency_ms": 24.5
-    },
-    {
       "question": "What is the average resolution time per product?",
       "answer": "5 rows:\n\nproduct | resolved_tickets | avg_resolution_hours | median_resolution_hours | p90_resolution_hours\n--- | --- | --- | --- | ---\napi | 375 | 151.45 | 119.5 | 229.74\nbilling | 374 | 135.53 | 107.25 | 219.7\nintegrations | 432 | 137.14 | 114.0 | 225.0\nmobile_app | 420 | 152.94 | 116.0 | 238.1\nweb_portal | 405 | 148.97 | 121.0 | 231.6",
       "route": "tickets",
@@ -205,6 +107,104 @@
       ],
       "warnings": [],
       "latency_ms": 40.3
+    },
+    {
+      "question": "How do I configure CORSMiddleware to allow my frontend origin?",
+      "answer": "You can configure it in your **FastAPI** application using the `CORSMiddleware`. [2] The default parameters used by the `CORSMiddleware` implementation are restrictive by default, so you'll need to explicitly enable particular origins, methods, or headers, in order for browsers to be permitted to use them in a Cross-Domain context. [2] In this case the middleware will pass the request through as normal, but will include appropriate CORS headers on the response. [1]",
+      "route": "docs",
+      "abstained": false,
+      "confidence": 0.641,
+      "citations": [
+        {
+          "source": "fastapi/tutorial/cors.md",
+          "section": "Use `CORSMiddleware` > Simple requests",
+          "passage": "Any request with an `Origin` header. In this case the middleware will pass the request through as normal, but will include appropriate CORS headers on the response.",
+          "url": "https://fastapi.tiangolo.com/tutorial/cors/",
+          "last_updated": "2026-03-05",
+          "score": 0.0323
+        },
+        {
+          "source": "fastapi/tutorial/cors.md",
+          "section": "Use `CORSMiddleware`",
+          "passage": "You can configure it in your **FastAPI** application using the `CORSMiddleware`.\n\n* Import `CORSMiddleware`.\n* Create a list of allowed origins (as strings).\n* Add it as a \"middleware\" to your **FastAPI** application.\n\nYou can also specify whether your backend allows:\n\n* Credentials (Authorization headers, Cookies, etc).\n* Specific HTTP methods (`POST`, `PUT`) or all of them with the wildcard `\"*\"`.\n* Specific HTTP headers or all of them with the wildcard `\"*\"`.\n\nThe default parameters used by the `CORSMiddleware` implementation are restrictive by default, so you'll need to explicitly enable p",
+          "url": "https://fastapi.tiangolo.com/tutorial/cors/",
+          "last_updated": "2026-03-05",
+          "score": 0.0318
+        }
+      ],
+      "sql": null,
+      "rows": null,
+      "columns": null,
+      "warnings": [],
+      "latency_ms": 27.3
+    },
+    {
+      "question": "What is the default max_age for CORSMiddleware?",
+      "answer": "`max_age` - Sets a maximum time in seconds for browsers to cache CORS responses. Defaults to `600`. [1] The default parameters used by the `CORSMiddleware` implementation are restrictive by default, so you'll need to explicitly enable particular origins, methods, or headers, in order for browsers to be permitted to use them in a Cross-Domain context. [2] You can configure it in your **FastAPI** application using the `CORSMiddleware`. [2]",
+      "route": "docs",
+      "abstained": false,
+      "confidence": 0.789,
+      "citations": [
+        {
+          "source": "fastapi/tutorial/cors.md",
+          "section": "Use `CORSMiddleware`",
+          "passage": "None of `allow_origins`, `allow_methods` and `allow_headers` can be set to `['*']` if `allow_credentials` is set to `True`. All of them must be explicitly specified.\n\n* `expose_headers` - Indicate any response headers that should be made accessible to the browser. Defaults to `[]`.\n* `max_age` - Sets a maximum time in seconds for browsers to cache CORS responses. Defaults to `600`.\n\nThe middleware responds to two particular types of HTTP request...",
+          "url": "https://fastapi.tiangolo.com/tutorial/cors/",
+          "last_updated": "2026-03-05",
+          "score": 0.0328
+        },
+        {
+          "source": "fastapi/tutorial/cors.md",
+          "section": "Use `CORSMiddleware`",
+          "passage": "You can configure it in your **FastAPI** application using the `CORSMiddleware`.\n\n* Import `CORSMiddleware`.\n* Create a list of allowed origins (as strings).\n* Add it as a \"middleware\" to your **FastAPI** application.\n\nYou can also specify whether your backend allows:\n\n* Credentials (Authorization headers, Cookies, etc).\n* Specific HTTP methods (`POST`, `PUT`) or all of them with the wildcard `\"*\"`.\n* Specific HTTP headers or all of them with the wildcard `\"*\"`.\n\nThe default parameters used by the `CORSMiddleware` implementation are restrictive by default, so you'll need to explicitly enable p",
+          "url": "https://fastapi.tiangolo.com/tutorial/cors/",
+          "last_updated": "2026-03-05",
+          "score": 0.0323
+        }
+      ],
+      "sql": null,
+      "rows": null,
+      "columns": null,
+      "warnings": [],
+      "latency_ms": 24.8
+    },
+    {
+      "question": "How many Uvicorn worker processes should I run inside a Docker container on Kubernetes?",
+      "answer": "If you have a simple setup, with a **single container** that then starts multiple **worker processes** (or also just one process), then you could run those previous steps in the same container, right before starting the process with the app. [2] In particular, when running on **Kubernetes** you will probably **not** want to use workers and instead run **a single Uvicorn process per container**, but I'll tell you about it later in that chapter. [3] One Uvicorn **process manager** would listen on the **IP** and **port**, and it would start **multiple Uvicorn worker processes**. [1]",
+      "route": "docs",
+      "abstained": false,
+      "confidence": 0.776,
+      "citations": [
+        {
+          "source": "fastapi/deployment/concepts.md",
+          "section": "Replication - Processes and Memory > Examples of Replication Tools and Strategies",
+          "passage": "Here are some possible combinations and strategies:\n\n* **Uvicorn** with `--workers`\n    * One Uvicorn **process manager** would listen on the **IP** and **port**, and it would start **multiple Uvicorn worker processes**.\n* **Kubernetes** and other distributed **container systems**\n    * Something in the **Kubernetes** layer would listen on the **IP** and **port**. The replication would be by having **multiple containers**, each with **one Uvicorn process** running.\n* **Cloud services** that handle this for you\n    * The cloud service will probably **handle replication for you**. It would possi",
+          "url": "https://fastapi.tiangolo.com/deployment/concepts/",
+          "last_updated": "2026-06-19",
+          "score": 0.0328
+        },
+        {
+          "source": "fastapi/deployment/docker.md",
+          "section": "Previous Steps Before Starting and Containers > Single Container",
+          "passage": "If you have a simple setup, with a **single container** that then starts multiple **worker processes** (or also just one process), then you could run those previous steps in the same container, right before starting the process with the app.",
+          "url": "https://fastapi.tiangolo.com/deployment/docker/",
+          "last_updated": "2026-07-24",
+          "score": 0.0318
+        },
+        {
+          "source": "fastapi/deployment/server-workers.md",
+          "section": "Server Workers - Uvicorn with Workers",
+          "passage": "Note:\n\nIf you are using containers, for example with Docker or Kubernetes, I'll tell you more about that in the next chapter: FastAPI in Containers - Docker.\n\nIn particular, when running on **Kubernetes** you will probably **not** want to use workers and instead run **a single Uvicorn process per container**, but I'll tell you about it later in that chapter.",
+          "url": "https://fastapi.tiangolo.com/deployment/server-workers/",
+          "last_updated": "2026-07-21",
+          "score": 0.0313
+        }
+      ],
+      "sql": null,
+      "rows": null,
+      "columns": null,
+      "warnings": [],
+      "latency_ms": 24.5
     },
     {
       "question": "What is the capital of France?",
