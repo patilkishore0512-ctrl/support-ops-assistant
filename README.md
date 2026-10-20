@@ -46,6 +46,8 @@ make serve                       # API on http://localhost:8000
 
 No API key is needed: the default LLM is a documented offline mock. Set `LLM_PROVIDER` in `.env` to use OpenAI or Anthropic (see [`.env.example`](.env.example)).
 
+**New here?** The [walkthrough](docs/walkthrough.md) runs every part step by step, with the real output of each command (about 15 minutes, no keys or downloads).
+
 No `make`? See the commands in [Part A](docs/part-a-pipeline.md#how-to-run) and [Part B](docs/part-b-rag-service.md#how-to-run).
 
 ## Repository layout
