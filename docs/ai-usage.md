@@ -40,6 +40,7 @@ Commits include a `Co-Authored-By: Claude` line.
 - Approved running the real-model evaluation on GitHub Actions, so results are reproducible on a clean machine and the setup works without API keys.
 - Chose Azure as the target cloud for the design note, based on hands-on experience deploying to Azure Web Apps and building CI/CD with GitHub Actions, so the deployment, monitoring and cost choices reflect a platform I have run in practice.
 - Reviewed the design-note plan against the assignment's four questions (100× scale, deployment and monitoring, top risks, next steps) before it was written.
+- Evaluated the orchestration approach and kept the question flow in plain Python (validate, route, then document search or guarded SQL) rather than an agent framework such as LangGraph, because the flow is a fixed two-path pipeline; identified LangGraph as the path for multi-source or agentic extensions.
 - Used AI assistance to explore implementation approaches and refine technical decisions.
 
 ### 3. AI-Assisted Implementation and Validation
@@ -48,11 +49,14 @@ Commits include a `Co-Authored-By: Claude` line.
 - Reviewed generated changes against requirements and validated functionality before approving each deliverable.
 - Verified automated tests and end-to-end pipeline execution through GitHub Actions CI.
 - Reviewed the evaluation results, including the finding that the re-ranker's raw score wrongly refused answerable questions, and the confidence fix that reduced those refusals from 27% to 9%.
+- Re-checked the final solution against the assignment brief, including whether the knowledge base and the routing between structured and unstructured data meet the stated requirements.
+- Reviewed the Part A pipeline design step by step: file-level idempotency, data quality checks and quarantine, the newer-version-wins upsert, schema drift handling and the curated views.
 
 ### 4. Repository Management and Delivery
 
 - Set up and managed the public GitHub repository and integrated the Claude GitHub App into the development workflow.
 - Maintained a clean project structure, README, detailed documentation, and sample outputs.
+- Kept the repository focused on the brief by removing tooling that was not required for the submission.
 - Ensured transparency around AI-generated contributions through appropriate documentation and commit attribution.
 
 
