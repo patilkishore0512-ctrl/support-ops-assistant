@@ -51,6 +51,7 @@ Commits include a `Co-Authored-By: Claude` line.
 - Reviewed the evaluation results, including the finding that the re-ranker's raw score wrongly refused answerable questions, and the confidence fix that reduced those refusals from 27% to 9%.
 - Re-checked the final solution against the assignment brief, including whether the knowledge base and the routing between structured and unstructured data meet the stated requirements.
 - Reviewed the Part A pipeline design step by step: file-level idempotency, data quality checks and quarantine, the newer-version-wins upsert, schema drift handling and the curated views.
+- Ran and verified the Part A pipeline locally on Windows, day by day: idempotent re-runs, quarantine of bad rows, the newer-version-wins upsert on reopened and stale tickets, schema drift, and the curated reports.
 
 ### 4. Repository Management and Delivery
 
